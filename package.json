@@ -1,0 +1,70 @@
+{
+  "name": "chai-superagent",
+  "version": "0.0.1",
+  "description": "Extend Chai Assertion library with tests for superagent requests",
+  "author": "Julian Grinblat <julian@dotcore.co.il>",
+  "license": "MIT",
+  "type": "module",
+  "keywords": [
+    "chai",
+    "chai-plugin",
+    "browser",
+    "http",
+    "request",
+    "vendor",
+    "supertest",
+    "superagent"
+  ],
+  "files": [
+    "index.js",
+    "types/index.d.ts"
+  ],
+  "exports": {
+    ".": {
+      "default": "./index.js",
+      "types": "./types/index.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "types": "./types/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:dotcore64/chai-superagent.git"
+  },
+  "scripts": {
+    "lint": "eslint --cache .",
+    "build": "cd types && tsc",
+    "test": "mocha",
+    "cover": "c8 npm test",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "charset": "^1.0.1",
+    "cookiejar": "^2.1.3",
+    "methods": "^1.1.2",
+    "qs": "^6.10.3"
+  },
+  "peerDependencies": {
+    "chai": "^4.0.0",
+    "superagent": "^7.1.1"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.0",
+    "@types/superagent": "^4.1.15",
+    "@types/supertest": "^2.0.11",
+    "c8": "^7.11.0",
+    "chai": "^4.3.6",
+    "eslint": "^8.11.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-mocha": "^10.0.3",
+    "eslint-plugin-node": "^11.1.0",
+    "mocha": "^9.2.2",
+    "superagent": "^7.1.1",
+    "supertest": "^6.2.2",
+    "typescript": "^4.6.2"
+  },
+  "engines": {
+    "node": ">=14.8.0"
+  }
+}
