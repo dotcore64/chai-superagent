@@ -1,84 +1,10 @@
-import fs from 'fs';
-import http from 'http';
 import chai from 'chai';
 import request, { Response } from 'superagent';
-import supertest from 'supertest';
 import ChaiHttp from './index';
 
 chai.use(ChaiHttp);
 
-declare const app: http.Server;
-
-supertest(app).get('/');
-request('http://localhost:8080').get('/');
-
-supertest(app)
-    .put('/user/me')
-    .set('X-API-Key', 'foobar')
-    .send({ password: '123', confirmPassword: '123' });
-
-supertest(app)
-    .post('/user/me')
-    .field('_method', 'put')
-    .field('password', '123')
-    .field('confirmPassword', '123');
-
-supertest(app)
-    .post('/user/avatar')
-    .attach('imageField', fs.readFileSync('avatar.png'), 'avatar.png');
-
-supertest(app)
-    .get('/protected')
-    .auth('user', 'pass');
-
-// HTTPS request, from: https://github.com/visionmedia/superagent/commit/6158efbf42cb93d77c1a70887284be783dd7dabe
-const ca = fs.readFileSync('ca.cert.pem');
-const key = fs.readFileSync('key.pem');
-const cert = fs.readFileSync('cert.pem');
-const callback = (err: any, res: Response) => {};
-
-supertest(app)
-    .post('/secure')
-    .ca(ca)
-    .key(key)
-    .cert(cert)
-    .end(callback);
-
-const pfx = fs.readFileSync('cert.pfx');
-supertest(app)
-    .post('/secure')
-    .pfx(pfx)
-    .end(callback);
-
-supertest(app)
-    .get('/search')
-    .query({ name: 'foo', limit: 10 });
-
-supertest(app)
-    .get('/download')
-    .buffer()
-    .parse((res, cb) => {
-        let data = '';
-        res.setEncoding('binary');
-        res.on('data', (chunk: any) => { data += chunk; });
-        res.on('end', () => { cb(undefined, new Buffer(data, 'binary')); });
-    });
-
-supertest(app)
-    .put('/user/me')
-    .send({ passsword: '123', confirmPassword: '123' })
-    .end((err: any, res: Response) => {
-        chai.expect(err).to.be.null;
-        chai.expect(res).to.have.status(200);
-    });
-
-supertest(app)
-    .put('/user/me')
-    .send({ passsword: '123', confirmPassword: '123' })
-    .then((res: Response) => chai.expect(res).to.have.status(200))
-    .catch((err: any) => { throw err; });
-
-const agent = supertest.agent(app);
+const agent = request.agent();
 
 agent
     .post('/session')

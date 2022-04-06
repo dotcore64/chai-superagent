@@ -46,20 +46,6 @@ request
   .then(res => expect(res).to.have.status(200));
 ```
 
-## Application / Server
-
-You may use `supertest` to make requests to existing web servers.
-
-__Note:__ This feature is only supported on Node.js, not in web browsers.
-
-```js
-import request from 'supertest';
-
-request(app)
-  .get('/')
-  .then(res => expect(res).to.have.status(200));
-```
-
 ## Assertions
 
 The Chai HTTP module provides a number of assertions

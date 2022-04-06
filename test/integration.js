@@ -1,7 +1,7 @@
 import { createServer } from 'http';
 import { expect } from 'chai';
 import request from 'superagent';
-import supertest from 'supertest';
+import prefix from 'superagent-prefix';
 
 describe('superagent', () => {
   const isNode = typeof process === 'object';
@@ -65,21 +65,6 @@ describe('superagent', () => {
 
   if (isNode) {
     describe('Node.js', () => {
-      it('can test a supertest response', () => {
-        const app = (req, res) => {
-          expect(req.headers['x-api-key']).to.equal('testing');
-          res.writeHeader(200, { 'content-type': 'text/plain' });
-          res.end('hello universe');
-        };
-
-        return supertest(app).get('/')
-          .set('X-API-Key', 'testing')
-          .then((res) => {
-            expect(res).to.have.status(200);
-            expect(res.text).to.equal('hello universe');
-          });
-      });
-
       it('can request an already existing url', (done) => {
         const server = createServer((req, res) => {
           expect(req.headers['x-api-key']).to.equal('test2');
@@ -88,8 +73,10 @@ describe('superagent', () => {
         });
 
         server.listen(0, () => {
+          const { address, port } = server.address();
+
           request
-            .get(`http://127.0.0.1:${server.address().port}/`)
+            .get(`http://${address}:${port}/`)
             .set('X-API-Key', 'test2')
             .end((err, res) => {
               expect(res).to.have.status(200);
@@ -100,24 +87,30 @@ describe('superagent', () => {
         });
       });
 
-      it('agent can be used to persist cookies', () => {
-        const app = (req, res) => {
+      it('agent can be used to persist cookies', (done) => {
+        const server = createServer((req, res) => {
           res.setHeader('Set-Cookie', 'mycookie=test');
           res.writeHeader(200, { 'content-type': 'text/plain' });
           res.end(`your cookie: ${req.headers.cookie}`);
-        };
-        const agent = supertest.agent(app);
+        });
 
-        return agent
-          .get('/')
-          .then((res) => {
-            expect(res.headers['set-cookie'][0]).to.equal('mycookie=test');
-            expect(res.text).to.equal('your cookie: undefined');
-          })
-          .then(() => agent.get('/'))
-          .then((res) => {
-            expect(res.text).to.equal('your cookie: mycookie=test');
-          });
+        server.listen(0, () => {
+          const { address, port } = server.address();
+          const agent = request.agent().use(prefix(`http://${address}:${port}`));
+
+          agent
+            .get('/')
+            .then((res) => {
+              expect(res.headers['set-cookie'][0]).to.equal('mycookie=test');
+              expect(res.text).to.equal('your cookie: undefined');
+            })
+            .then(() => agent.get('/'))
+            .then((res) => {
+              expect(res.text).to.equal('your cookie: mycookie=test');
+              server.once('close', () => { done(); });
+              server.close();
+            });
+        });
       });
     });
   }
