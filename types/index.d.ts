@@ -38,6 +38,8 @@ declare global {
     }
 }
 
-declare function chaiHttp(chai: any, utils: any): void;
+type chaiHttp = (chai: any, utils: any) => void;
 
-export default chaiHttp;
+declare function plugin({ strict }?: { strict?: boolean }): chaiHttp;
+
+export default plugin;

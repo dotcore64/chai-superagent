@@ -1,5 +1,8 @@
-import { expect } from 'chai';
+import { expect, use } from 'chai';
 import { agent as Agent } from 'superagent';
+
+// eslint-disable-next-line import/no-unresolved,node/no-missing-import
+use((await import('chai-superagent')).default({ strict: false }));
 
 describe('assertions', () => {
   it('#status property "status"', () => {
