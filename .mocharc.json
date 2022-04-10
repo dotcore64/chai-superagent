@@ -1,5 +1,5 @@
 {
   "reporter": "spec",
   "ui": "bdd",
-  "require": ["./test/prepare.js"]
+  "parallel": true
 }

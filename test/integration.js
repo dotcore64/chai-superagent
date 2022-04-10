@@ -1,7 +1,10 @@
 import { createServer } from 'http';
-import { expect } from 'chai';
+import { expect, use } from 'chai';
 import request from 'superagent';
 import prefix from 'superagent-prefix';
+
+// eslint-disable-next-line import/no-unresolved,node/no-missing-import
+use((await import('chai-superagent')).default());
 
 describe('superagent', () => {
   const isNode = typeof process === 'object';
@@ -61,6 +64,52 @@ describe('superagent', () => {
       .then((res) => {
         expect(res).to.have.status(400);
       }));
+
+    it('should reject non valid instances in strict mode', () => {
+      expect(
+        () => expect({}).to.have.status(200),
+      ).to.throw(Error, 'expected {} to be an instance of Response');
+
+      expect(
+        () => expect({}).to.be.json,
+      ).to.throw(Error, 'expected {} to be an instance of Request or Response');
+
+      expect(
+        () => expect({}).to.be.html,
+      ).to.throw(Error, 'expected {} to be an instance of Request or Response');
+
+      expect(
+        () => expect({}).to.be.text,
+      ).to.throw(Error, 'expected {} to be an instance of Request or Response');
+
+      expect(
+        () => expect({}).to.have.header('Pragma', 'test1'),
+      ).to.throw(Error, 'expected {} to be an instance of Request or Response');
+
+      expect(
+        () => expect({}).to.redirect,
+      ).to.throw(Error, 'expected {} to be an instance of Response');
+
+      expect(
+        () => expect({}).to.redirectTo('foo'),
+      ).to.throw(Error, 'expected {} to be an instance of Response');
+
+      expect(
+        () => expect({}).to.have.param('foo', 'bar'),
+      ).to.throw(Error, 'expected {} to be an instance of Request');
+
+      expect(
+        () => expect({}).to.have.cookie('foo', 'bar'),
+      ).to.throw(Error, 'expected {} to be an instance of Request');
+
+      expect(
+        () => expect({}).to.have.cookie('foo', 'bar'),
+      ).to.throw(Error, 'expected {} to be an instance of Request');
+
+      expect(
+        () => expect({}).to.have.charset('utf-8'),
+      ).to.throw(Error, 'expected {} to be an instance of Request');
+    });
   });
 
   if (isNode) {

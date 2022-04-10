@@ -25,12 +25,13 @@ $ npm install chai-superagent superagent
 
 ## Plugin
 
-Use this plugin as you would all other Chai plugins.
+Use this plugin as you would all other Chai plugins. Notice the function call - it accepts an optional parameter `{ strict }: { strict?: boolean }`. When `strict` is true, the assertions will assert that the object being tested is an instance of `superagent` `Request`, `Response` or `Agent` types. It defaults to `true`.
 
 ```js
 import { use } from 'chai';
+import superagent from 'chai-superagent';
 
-use((await import('chai-superagent')).default);
+use(superagent());
 ```
 
 ## Integration Testing

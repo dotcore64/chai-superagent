@@ -2,7 +2,9 @@ import chai from 'chai';
 import request, { Response } from 'superagent';
 import ChaiHttp from './index';
 
-chai.use(ChaiHttp);
+chai.use(ChaiHttp());
+chai.use(ChaiHttp({}));
+chai.use(ChaiHttp({ strict: true }));
 
 const agent = request.agent();
 

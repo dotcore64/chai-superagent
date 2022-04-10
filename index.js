@@ -3,7 +3,7 @@ import qs from 'qs';
 import { URL } from 'url';
 import Cookie from 'cookiejar';
 import charset from 'charset';
-import { Request, agent as Agent } from 'superagent';
+import { Request, Response, agent as Agent } from 'superagent';
 
 /**
  * ## Assertions
@@ -12,7 +12,7 @@ import { Request, agent as Agent } from 'superagent';
  * for the `expect` and `should` interfaces.
  */
 
-export default (chai, _) => {
+export default ({ strict = true } = {}) => (chai, _) => {
   const { Assertion } = chai;
   const i = _.inspect;
 
@@ -44,6 +44,58 @@ export default (chai, _) => {
     return undefined;
   }
 
+  function assertRequest(obj) {
+    if (strict) {
+      new Assertion(obj).assert(
+        obj instanceof Request,
+        'expected #{act} to be an instance of Request',
+        null,
+        true,
+        obj,
+        false,
+      );
+    }
+  }
+
+  function assertResponse(obj) {
+    if (strict) {
+      new Assertion(obj).assert(
+        obj instanceof Response,
+        'expected #{act} to be an instance of Response',
+        null,
+        true,
+        obj,
+        false,
+      );
+    }
+  }
+
+  function assertResponseOrRequest(obj) {
+    if (strict) {
+      new Assertion(obj).assert(
+        obj instanceof Response || obj instanceof Request,
+        'expected #{act} to be an instance of Request or Response',
+        null,
+        true,
+        obj,
+        false,
+      );
+    }
+  }
+
+  function assertResponseOrRequestOrAgent(obj) {
+    if (strict) {
+      new Assertion(obj).assert(
+        obj instanceof Response || obj instanceof Request || obj instanceof Agent,
+        'expected #{act} to be an instance of Request or Response or Agent',
+        null,
+        true,
+        obj,
+        false,
+      );
+    }
+  }
+
   /**
    * ### .status (code)
    *
@@ -59,6 +111,8 @@ export default (chai, _) => {
    */
 
   Assertion.addMethod('status', function (code) { // eslint-disable-line func-names
+    assertResponse(this._obj);
+
     const hasStatus = Boolean('status' in this._obj || 'statusCode' in this._obj);
     new Assertion(hasStatus).assert(
       hasStatus,
@@ -106,6 +160,8 @@ export default (chai, _) => {
    */
 
   Assertion.addMethod('header', function (key, value) { // eslint-disable-line func-names
+    assertResponseOrRequest(this._obj);
+
     const header = getHeader(this._obj, key);
 
     if (arguments.length < 2) {
@@ -153,6 +209,8 @@ export default (chai, _) => {
    */
 
   Assertion.addProperty('headers', function () { // eslint-disable-line func-names
+    assertResponseOrRequest(this._obj);
+
     this.assert(
       this._obj.headers || this._obj.getHeader,
       'expected #{this} to have headers or getHeader method',
@@ -203,6 +261,8 @@ export default (chai, _) => {
     const val = contentTypes[name];
 
     Assertion.addProperty(name, function () { // eslint-disable-line func-names
+      assertResponseOrRequest(this._obj);
+
       new Assertion(this._obj).to.have.headers; // eslint-disable-line no-unused-expressions
       const ct = getHeader(this._obj, 'content-type');
       const ins = i(ct) === 'undefined'
@@ -235,6 +295,8 @@ export default (chai, _) => {
    */
 
   Assertion.addMethod('charset', function (value) { // eslint-disable-line func-names
+    assertResponseOrRequest(this._obj);
+
     const normalized = value.toLowerCase();
 
     const { headers } = this._obj;
@@ -269,6 +331,8 @@ export default (chai, _) => {
    */
 
   Assertion.addProperty('redirect', function () { // eslint-disable-line func-names
+    assertResponse(this._obj);
+
     const redirectCodes = [301, 302, 303, 307, 308];
     const { status } = this._obj;
     const { redirects } = this._obj;
@@ -295,6 +359,8 @@ export default (chai, _) => {
    */
 
   Assertion.addMethod('redirectTo', function (destination) { // eslint-disable-line func-names
+    assertResponse(this._obj);
+
     const { redirects } = this._obj;
 
     new Assertion(this._obj).to.redirect; // eslint-disable-line no-unused-expressions
@@ -338,6 +404,8 @@ export default (chai, _) => {
    */
 
   Assertion.addMethod('param', function (...args) { // eslint-disable-line func-names
+    assertRequest(this._obj);
+
     const assertion = new Assertion();
     _.transferFlags(this, assertion);
     assertion._obj = qs.parse(new URL(this._obj.url, 'https://dummy.com').search.replace(/^\?/, ''));
@@ -369,6 +437,8 @@ export default (chai, _) => {
    */
 
   Assertion.addMethod('cookie', function (key, value) { // eslint-disable-line func-names
+    assertResponseOrRequestOrAgent(this._obj);
+
     let header = getHeader(this._obj, 'set-cookie');
     let cookie;
 
