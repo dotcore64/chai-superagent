@@ -1,8 +1,10 @@
-import { isIP } from 'is-ip'; // preferably use this only in browser environments
 import qs from 'qs';
 import Cookie from 'cookiejar';
 import charset from 'charset';
 import { Request, Response, agent } from 'superagent';
+
+// eslint-disable-next-line import/no-unresolved,node/no-missing-import
+import { isIP } from '#is-ip'; // this is 'net' in node, 'is-ip' in browsers
 
 // This gets around the fact that in browser environments, the `Agent` constructor is not exported
 function Agent() {}
