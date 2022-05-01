@@ -1,4 +1,4 @@
 {
   "reporter": "lcovonly",
-  "exclude": ["./karma.conf.cjs", "./test/*.js"]
+  "include": ["./index.js"]
 }
