@@ -1,4 +1,3 @@
 {
-  "reporter": "lcovonly",
-  "include": ["index.js"]
+  "reporter": "lcovonly"
 }
