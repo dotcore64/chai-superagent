@@ -31,7 +31,7 @@ module.exports = (config) => {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['spec', 'coverage'].concat(process.env.CI ? ['coveralls'] : []),
+    reporters: ['spec', 'coverage'],
 
     // web server port
     port: 9876,
@@ -60,7 +60,7 @@ module.exports = (config) => {
 
     rollupPreprocessor: {
       plugins: [
-        require('rollup-plugin-istanbul')({ exclude: ['test/*.js', 'node_modules/**'] }),
+        require('rollup-plugin-istanbul')({ exclude: ['test/**', 'node_modules/**'] }),
         require('@rollup/plugin-alias')({ entries: { http: './test/http-polyfill.js' } }),
         require('@rollup/plugin-node-resolve').default({
           mainFields: ['module', 'browser', 'main'],
