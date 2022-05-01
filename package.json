@@ -4,6 +4,9 @@
   "description": "Extend Chai Assertion library with tests for superagent requests",
   "author": "Julian Grinblat <julian@dotcore.co.il>",
   "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "type": "module",
   "keywords": [
     "chai",
@@ -87,8 +90,5 @@
     "superagent": "^7.1.3",
     "superagent-prefix": "^0.0.2",
     "typescript": "^4.6.4"
-  },
-  "engines": {
-    "node": ">=14.8.0"
   }
 }
