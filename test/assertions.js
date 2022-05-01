@@ -2,7 +2,9 @@ import { expect, use } from 'chai';
 import { agent as Agent } from 'superagent';
 
 // eslint-disable-next-line import/no-unresolved,node/no-missing-import
-use((await import('chai-superagent')).default({ strict: false }));
+import superagent from 'chai-superagent';
+
+use(superagent({ strict: false }));
 
 describe('assertions', () => {
   it('#status property "status"', () => {
@@ -357,11 +359,15 @@ describe('assertions', () => {
       'name3=value3; Domain=.somedomain.com',
     ];
 
-    if (agent.jar) { // Using superagent.Agent (node)
-      agent.jar.setCookies(cookies);
-    } else { // using superagent.Request (browser)
-      agent.set('set-cookie', cookies);
+    if (!agent.jar) { // in the browser
+      expect(() => {
+        expect(agent).to.have.cookie('name');
+      }).to.throw('In browsers cookies are managed automatically by the browser, so the .agent() does not isolate cookies.');
+      return;
     }
+
+    // node
+    agent.jar.setCookies(cookies);
 
     expect(agent).to.have.cookie('name');
     expect(agent).to.have.cookie('name2');

@@ -1,9 +1,13 @@
 import { isIP } from 'net';
 import qs from 'qs';
-import { URL } from 'url';
 import Cookie from 'cookiejar';
 import charset from 'charset';
-import { Request, Response, agent as Agent } from 'superagent';
+import { Request, Response, agent } from 'superagent';
+
+// This gets around the fact that in browser environments, the `Agent` constructor is not exported
+function Agent() {}
+// eslint-disable-next-line no-proto
+Agent.prototype = agent().__proto__; // in node environments, it is enough to set const Agent = agent
 
 /**
  * ## Assertions
@@ -439,14 +443,22 @@ export default ({ strict = true } = {}) => (chai, _) => {
   Assertion.addMethod('cookie', function (key, value) { // eslint-disable-line func-names
     assertResponseOrRequestOrAgent(this._obj);
 
-    let header = getHeader(this._obj, 'set-cookie');
-    let cookie;
-
-    if (!header) {
-      header = (getHeader(this._obj, 'cookie') || '').split(';');
+    if (this._obj instanceof Agent && this._obj.jar === undefined) {
+      new Assertion(this._obj).assert(
+        !(this._obj instanceof Agent && this._obj.jar === undefined),
+        'In browsers cookies are managed automatically by the browser, so the .agent() does not isolate cookies.',
+        null,
+        true,
+        this._obj,
+        false,
+      );
     }
 
-    if ((this._obj instanceof Agent || this._obj instanceof Request) && this._obj.jar) {
+    const header = getHeader(this._obj, 'set-cookie') || (getHeader(this._obj, 'cookie') || '').split(';');
+
+    let cookie;
+
+    if (this._obj.jar) {
       cookie = this._obj.jar.getCookie(key, Cookie.CookieAccessInfo.All);
     } else {
       cookie = Cookie.CookieJar();

@@ -7,7 +7,14 @@
   },
   "rules": {
     "no-underscore-dangle": ["error", { "allow": ["_obj"] }],
-    "import/extensions": 0
+    "max-len": ["error", { "code": 140, "comments": 160 }],
+    "import/extensions": 0,
+    "import/no-extraneous-dependencies": ["error", {
+      "devDependencies": [
+        "./test/*.js",
+        "karma.conf.cjs"
+      ]
+    }]
   },
   "overrides": [
     {

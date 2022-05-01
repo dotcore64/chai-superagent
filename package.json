@@ -33,7 +33,10 @@
   "scripts": {
     "lint": "eslint --cache .",
     "build": "cd types && tsc",
-    "test": "mocha",
+    "test": "npm run test:node && npm run test:browser",
+    "test:node": "mocha",
+    "test:browser": "karma start karma.conf.cjs --single-run --no-auto-watch",
+    "tdd": "karma start karma.conf.cjs",
     "cover": "c8 npm test",
     "prepare": "npm run build"
   },
@@ -48,6 +51,9 @@
     "superagent": "^7.1.3"
   },
   "devDependencies": {
+    "@rollup/plugin-alias": "^3.1.9",
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-node-resolve": "^13.2.1",
     "@types/chai": "^4.3.1",
     "@types/superagent": "^4.1.15",
     "c8": "^7.11.2",
@@ -57,7 +63,21 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-mocha": "^10.0.4",
     "eslint-plugin-node": "^11.1.0",
+    "is-ip": "^4.0.0",
+    "karma": "^6.3.19",
+    "karma-chrome-launcher": "^3.1.1",
+    "karma-coverage": "^2.2.0",
+    "karma-coveralls": "^2.1.0",
+    "karma-firefox-launcher": "^2.1.2",
+    "karma-mocha": "^2.0.1",
+    "karma-rollup-preprocessor": "^7.0.8",
+    "karma-sharding": "^4.4.0",
+    "karma-sourcemap-loader": "^0.3.8",
+    "karma-spec-reporter": "^0.0.34",
     "mocha": "^9.2.2",
+    "puppeteer": "^13.7.0",
+    "rollup": "^2.71.1",
+    "rollup-plugin-polyfill-node": "^0.9.0",
     "superagent": "^7.1.3",
     "superagent-prefix": "^0.0.2",
     "typescript": "^4.6.4"
