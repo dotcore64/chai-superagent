@@ -44,7 +44,7 @@ jobs:
           sudo apt install lcov
 
       - name: Debug coverage
-        run: find coverage -name lcov.info -exec echo -a {} && cat '{}' \;
+        run: find coverage -name lcov.info -exec echo -a {} -exec cat '{}' \;
 
       - name: Merge lcov reports
         run: find coverage -name lcov.info -exec echo -a \"{}\" \; | xargs lcov -o coverage/lcov.info
