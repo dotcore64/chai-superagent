@@ -5,7 +5,6 @@
 //                 Austin Cawley-Edwards <https://github.com/austince>
 // TypeScript Version: 3.0
 /// <reference types="chai" />
-import * as request from 'superagent';
 
 // Merge namespace with global chai
 declare global {
@@ -31,15 +30,11 @@ declare global {
             html: Assertion;
             redirect: Assertion;
         }
-
-        interface TypeComparison {
-            ip: Assertion;
-        }
     }
 }
 
-type chaiHttp = (chai: any, utils: any) => void;
+type chaiSuperagent = (chai: any, utils: any) => void;
 
-declare function plugin({ strict }?: { strict?: boolean }): chaiHttp;
+declare function plugin({ strict }?: { strict?: boolean }): chaiSuperagent;
 
 export default plugin;

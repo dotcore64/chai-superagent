@@ -11,7 +11,7 @@
 ## Features
 
 - simplified fork of [`chai-http`](https://github.com/chaijs/chai-http)
-- esm module only, support node >= 16
+- esm module only, support node >= 14
 - integration test request composition
 - test http apps or external services
 - assertions for common http tasks

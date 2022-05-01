@@ -3,9 +3,6 @@ import Cookie from 'cookiejar';
 import charset from 'charset';
 import { Request, Response, agent } from 'superagent';
 
-// eslint-disable-next-line import/no-unresolved,node/no-missing-import
-import { isIP } from '#is-ip'; // this is 'net' in node, 'is-ip' in browsers
-
 // This gets around the fact that in browser environments, the `Agent` constructor is not exported
 function Agent() {}
 // eslint-disable-next-line no-proto
@@ -221,28 +218,6 @@ export default ({ strict = true } = {}) => (chai, _) => {
       this._obj.headers || this._obj.getHeader,
       'expected #{this} to have headers or getHeader method',
       'expected #{this} to not have headers or getHeader method',
-    );
-  });
-
-  /**
-   * ### .ip
-   *
-   * Assert that a string represents valid ip address.
-   *
-   * ```js
-   * expect('127.0.0.1').to.be.an.ip;
-   * expect('2001:0db8:85a3:0000:0000:8a2e:0370:7334').to.be.an.ip;
-   * ```
-   *
-   * @name ip
-   * @api public
-   */
-
-  Assertion.addProperty('ip', function () { // eslint-disable-line func-names
-    this.assert(
-      isIP(this._obj),
-      'expected #{this} to be an ip',
-      'expected #{this} to not be an ip',
     );
   });
 
