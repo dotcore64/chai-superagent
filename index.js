@@ -1,4 +1,4 @@
-import { isIP } from 'net';
+import { isIP } from 'is-ip'; // preferably use this only in browser environments
 import qs from 'qs';
 import Cookie from 'cookiejar';
 import charset from 'charset';
