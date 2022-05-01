@@ -1,3 +1,4 @@
 {
-  "reporter": "lcovonly"
+  "reporter": "lcovonly",
+  "exclude": ["./karma.conf.cjs"]
 }
