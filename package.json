@@ -37,7 +37,7 @@
     "test:node": "mocha",
     "test:browser": "karma start karma.conf.cjs --single-run --no-auto-watch",
     "tdd": "karma start karma.conf.cjs",
-    "cover": "c8 npm test:node && npm run test:browser",
+    "cover": "c8 npm run test:node && npm run test:browser",
     "prepare": "npm run build"
   },
   "dependencies": {
