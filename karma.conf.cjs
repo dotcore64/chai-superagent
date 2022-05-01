@@ -60,7 +60,7 @@ module.exports = (config) => {
 
     rollupPreprocessor: {
       plugins: [
-        require('rollup-plugin-istanbul')({ exclude: ['test/*.js'] }),
+        require('rollup-plugin-istanbul')({ exclude: ['test/*.js', 'node_modules/**'] }),
         require('@rollup/plugin-alias')({ entries: { http: './test/http-polyfill.js' } }),
         require('@rollup/plugin-node-resolve').default({
           mainFields: ['module', 'browser', 'main'],
