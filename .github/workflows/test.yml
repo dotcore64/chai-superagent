@@ -12,7 +12,6 @@ jobs:
     strategy:
       matrix:
         node-version:
-          - 14.x
           - 16.x
 
     steps:
@@ -31,6 +30,14 @@ jobs:
 
       - name: Test
         run: npm run cover
+
+      - name: Install lcov
+        run: |
+          sudo apt update
+          sudo apt install lcov
+
+      - name: Merge lcov reports
+        run: find coverage -name lcov.info -exec echo -a \"{}\" \; | xargs lcov -o coverage/lcov.info
 
       - name: Publish to coveralls.io
         uses: coverallsapp/github-action@master

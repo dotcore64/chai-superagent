@@ -4,7 +4,9 @@ import request from 'superagent';
 import prefix from 'superagent-prefix';
 
 // eslint-disable-next-line import/no-unresolved,node/no-missing-import
-use((await import('chai-superagent')).default());
+import superagent from 'chai-superagent';
+
+use(superagent());
 
 describe('superagent', () => {
   const isNode = typeof process === 'object';
