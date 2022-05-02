@@ -1,10 +1,10 @@
 import chai from 'chai';
 import request, { Response } from 'superagent';
-import ChaiHttp from './index';
+import ChaiSuperagent from './index';
 
-chai.use(ChaiHttp());
-chai.use(ChaiHttp({}));
-chai.use(ChaiHttp({ strict: true }));
+chai.use(ChaiSuperagent());
+chai.use(ChaiSuperagent({}));
+chai.use(ChaiSuperagent({ strict: true }));
 
 const agent = request.agent();
 
@@ -26,7 +26,6 @@ function test1() {
         chai.expect(res).to.have.header('content-type', 'text/plain');
         chai.expect(res).to.have.header('content-type', /^text/);
         chai.expect(res).to.have.headers;
-        chai.expect('127.0.0.1').to.be.an.ip;
         chai.expect(res).to.be.json;
         chai.expect(res).to.be.html;
         chai.expect(res).to.be.text;
