@@ -28,12 +28,6 @@
     },
     "./package.json": "./package.json"
   },
-  "imports": {
-    "#is-ip": {
-      "node": "net",
-      "browser": "is-ip"
-    }
-  },
   "types": "./types/index.d.ts",
   "repository": {
     "type": "git",
