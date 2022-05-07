@@ -98,16 +98,6 @@ which can cause assertions to fail.
 expect(req).to.have.headers;
 ```
 
-### .ip
-
-
-Assert that a string represents valid ip address.
-
-```js
-expect('127.0.0.1').to.be.an.ip;
-expect('2001:0db8:85a3:0000:0000:8a2e:0370:7334').to.be.an.ip;
-```
-
 ### .json / .text / .html
 
 
