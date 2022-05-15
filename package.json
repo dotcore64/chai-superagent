@@ -35,13 +35,11 @@
   },
   "scripts": {
     "lint": "eslint --cache .",
-    "build": "cd types && tsc",
-    "test": "npm run test:node && npm run test:browser",
+    "test:types": "tsc -p types/tsconfig.json",
     "test:node": "mocha",
     "test:browser": "karma start karma.conf.cjs --single-run --no-auto-watch",
-    "tdd": "karma start karma.conf.cjs",
-    "cover": "c8 npm run test:node && npm run test:browser",
-    "prepare": "npm run build"
+    "test": "npm run test:types && npm run test:node && npm run test:browser",
+    "cover": "npm run test:types && c8 npm run test:node && npm run test:browser"
   },
   "dependencies": {
     "charset": "^1.0.1",
