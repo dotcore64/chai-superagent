@@ -1,6 +1,6 @@
 import chai from 'chai';
 import request, { Response } from 'superagent';
-import ChaiSuperagent from './index';
+import ChaiSuperagent from 'chai-superagent';
 
 chai.use(ChaiSuperagent());
 chai.use(ChaiSuperagent({}));

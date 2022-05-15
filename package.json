@@ -35,7 +35,7 @@
   },
   "scripts": {
     "lint": "eslint --cache .",
-    "test:types": "tsc -p types/tsconfig.json",
+    "test:types": "tsc -p types",
     "test:node": "mocha",
     "test:browser": "karma start karma.conf.cjs --single-run --no-auto-watch",
     "test": "npm run test:types && npm run test:node && npm run test:browser",
@@ -79,6 +79,6 @@
     "rollup-plugin-istanbul": "^3.0.0",
     "superagent": "^7.1.3",
     "superagent-prefix": "^0.0.2",
-    "typescript": "^4.6.4"
+    "typescript": "^4.7.1-rc"
   }
 }

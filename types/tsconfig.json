@@ -1,20 +1,12 @@
 {
   "compilerOptions": {
-    "module": "esnext",
-    "lib": [
-      "es6",
-      "dom"
-    ],
-    "esModuleInterop": true,
+    "module": "nodenext",
     "noImplicitAny": true,
     "noImplicitThis": true,
     "strictNullChecks": false,
     "strictFunctionTypes": true,
     "baseUrl": "../",
-    "typeRoots": [],
-    "types": [],
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true
+    "noEmit": true
   },
   "files": [
     "index.d.ts",
