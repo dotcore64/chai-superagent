@@ -8,6 +8,26 @@ function Agent() {}
 // eslint-disable-next-line no-proto
 Agent.prototype = agent().__proto__; // in node environments, it is enough to set const Agent = agent
 
+/*!
+ * Return a header from `Request` or `Response` object.
+ *
+ * @param {Request|Response} object
+ * @param {String} Header
+ * @returns {String|Undefined}
+ */
+
+function getHeader(obj, key) {
+  const normalized = key && key.toLowerCase();
+  if (obj.getHeader) return obj.getHeader(normalized);
+  if (obj.headers) return obj.headers[normalized];
+  return undefined; // eslint-disable-line unicorn/no-useless-undefined
+}
+
+function normalizeCharset(cs) {
+  if (cs === 'utf8') return 'utf-8';// eslint-disable-line unicorn/text-encoding-identifier-case
+  return cs;
+}
+
 /**
  * ## Assertions
  *
@@ -32,27 +52,12 @@ export default ({ strict = true } = {}) => (chai, _) => {
     html: 'text/html',
   };
 
-  /*!
-   * Return a header from `Request` or `Response` object.
-   *
-   * @param {Request|Response} object
-   * @param {String} Header
-   * @returns {String|Undefined}
-   */
-
-  function getHeader(obj, key) {
-    const normalized = key && key.toLowerCase();
-    if (obj.getHeader) return obj.getHeader(normalized);
-    if (obj.headers) return obj.headers[normalized];
-    return undefined;
-  }
-
   function assertRequest(obj) {
     if (strict) {
       new Assertion(obj).assert(
         obj instanceof Request,
         'expected #{act} to be an instance of Request',
-        null,
+        null, // eslint-disable-line unicorn/no-null
         true,
         obj,
         false,
@@ -65,7 +70,7 @@ export default ({ strict = true } = {}) => (chai, _) => {
       new Assertion(obj).assert(
         obj instanceof Response,
         'expected #{act} to be an instance of Response',
-        null,
+        null, // eslint-disable-line unicorn/no-null
         true,
         obj,
         false,
@@ -78,7 +83,7 @@ export default ({ strict = true } = {}) => (chai, _) => {
       new Assertion(obj).assert(
         obj instanceof Response || obj instanceof Request,
         'expected #{act} to be an instance of Request or Response',
-        null,
+        null, // eslint-disable-line unicorn/no-null
         true,
         obj,
         false,
@@ -91,7 +96,7 @@ export default ({ strict = true } = {}) => (chai, _) => {
       new Assertion(obj).assert(
         obj instanceof Response || obj instanceof Request || obj instanceof Agent,
         'expected #{act} to be an instance of Request or Response or Agent',
-        null,
+        null, // eslint-disable-line unicorn/no-null
         true,
         obj,
         false,
@@ -120,6 +125,7 @@ export default ({ strict = true } = {}) => (chai, _) => {
     new Assertion(hasStatus).assert(
       hasStatus,
       "expected #{act} to have keys 'status', or 'statusCode'",
+      // eslint-disable-next-line unicorn/no-null
       null, // never negated
       hasStatus, // expected
       this._obj, // actual
@@ -281,18 +287,14 @@ export default ({ strict = true } = {}) => (chai, _) => {
     const normalized = value.toLowerCase();
 
     const { headers } = this._obj;
-    let cs = charset(headers);
-
     /*
      * Fix charset() treating "utf8" as a special case
      * See https://github.com/node-modules/charset/issues/12
      */
-    if (cs === 'utf8') {
-      cs = 'utf-8';
-    }
+    const cs = normalizeCharset(charset(headers));
 
     this.assert(
-      cs != null && normalized === cs,
+      cs !== undefined && normalizeCharset(normalized) === cs,
       `expected content type to have ${normalized} charset`,
       `expected content type to not have ${normalized} charset`,
     );
@@ -319,7 +321,7 @@ export default ({ strict = true } = {}) => (chai, _) => {
     const { redirects } = this._obj;
 
     this.assert(
-      redirectCodes.indexOf(status) >= 0 || (redirects && redirects.length),
+      redirectCodes.includes(status) || (redirects?.length > 0),
       `expected redirect with 30X status code but got ${status}`,
       `expected not to redirect but got ${status} status`,
     );
@@ -346,14 +348,11 @@ export default ({ strict = true } = {}) => (chai, _) => {
 
     new Assertion(this._obj).to.redirect; // eslint-disable-line no-unused-expressions
 
-    if (redirects && redirects.length) {
-      let hasRedirected;
+    if (redirects?.length > 0) {
+      const hasRedirected = Object.prototype.toString.call(destination) === '[object RegExp]'
+        ? redirects.some((redirect) => destination.test(redirect))
+        : redirects.includes(destination);
 
-      if (Object.prototype.toString.call(destination) === '[object RegExp]') {
-        hasRedirected = redirects.some((redirect) => destination.test(redirect));
-      } else {
-        hasRedirected = redirects.indexOf(destination) > -1;
-      }
       this.assert(
         hasRedirected,
         `expected redirect to ${destination} but got ${redirects.join(' then ')}`,
@@ -424,7 +423,7 @@ export default ({ strict = true } = {}) => (chai, _) => {
       new Assertion(this._obj).assert(
         !(this._obj instanceof Agent && this._obj.jar === undefined),
         'In browsers cookies are managed automatically by the browser, so the .agent() does not isolate cookies.',
-        null,
+        null, // eslint-disable-line unicorn/no-null
         true,
         this._obj,
         false,

@@ -1,7 +1,7 @@
 import { expect, use } from 'chai';
 import { agent as Agent } from 'superagent';
 
-// eslint-disable-next-line import/no-unresolved,node/no-missing-import
+// eslint-disable-next-line import/no-unresolved,n/no-missing-import
 import superagent from 'chai-superagent';
 
 use(superagent({ strict: false }));
@@ -385,29 +385,29 @@ describe('assertions', () => {
   describe('#charset', () => {
     it('should match charset in content type', () => {
       const req = { headers: { 'content-type': ['text/plain; charset=utf-8'] } };
-      expect(req).to.have.charset('utf-8');
+      expect(req).to.have.charset('utf8');
 
       expect(() => {
-        expect(req).to.not.have.charset('utf-8');
-      }).to.throw('expected content type to not have utf-8 charset');
+        expect(req).to.not.have.charset('utf8');
+      }).to.throw('expected content type to not have utf8 charset');
     });
 
     it('should handle no content type', () => {
       const req = { headers: {} };
-      expect(req).to.not.have.charset('utf-8');
+      expect(req).to.not.have.charset('utf8');
 
       expect(() => {
-        expect(req).to.have.charset('utf-8');
-      }).to.throw('expected content type to have utf-8 charset');
+        expect(req).to.have.charset('utf8');
+      }).to.throw('expected content type to have utf8 charset');
     });
 
     it('should handle no charset in content type', () => {
       const req = { headers: { 'content-type': ['text/plain'] } };
-      expect(req).to.not.have.charset('utf-8');
+      expect(req).to.not.have.charset('utf8');
 
       expect(() => {
-        expect(req).to.to.have.charset('utf-8');
-      }).to.throw('expected content type to have utf-8 charset');
+        expect(req).to.to.have.charset('utf8');
+      }).to.throw('expected content type to have utf8 charset');
     });
   });
 });

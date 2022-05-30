@@ -1,9 +1,9 @@
-import { createServer } from 'http';
+import { createServer } from 'node:http';
 import { expect, use } from 'chai';
 import request from 'superagent';
 import prefix from 'superagent-prefix';
 
-// eslint-disable-next-line import/no-unresolved,node/no-missing-import
+// eslint-disable-next-line import/no-unresolved,n/no-missing-import
 import superagent from 'chai-superagent';
 
 use(superagent());
@@ -109,7 +109,7 @@ describe('superagent', () => {
       ).to.throw(Error, 'expected {} to be an instance of Request');
 
       expect(
-        () => expect({}).to.have.charset('utf-8'),
+        () => expect({}).to.have.charset('utf8'),
       ).to.throw(Error, 'expected {} to be an instance of Request');
     });
   });
