@@ -56,12 +56,12 @@ module.exports = (config) => {
 
     // Concurrency level
     // how many browser should be started simultaneous
-    concurrency: Infinity,
+    concurrency: Number.POSITIVE_INFINITY,
 
     rollupPreprocessor: {
       plugins: [
         require('rollup-plugin-istanbul')({ exclude: ['**/test/**', 'node_modules/**'] }),
-        require('@rollup/plugin-alias')({ entries: { http: 'test/http-polyfill.js' } }),
+        require('@rollup/plugin-alias')({ entries: { 'node:http': 'test/http-polyfill.js' } }),
         require('@rollup/plugin-node-resolve').default({
           mainFields: ['module', 'browser', 'main'],
         }),
