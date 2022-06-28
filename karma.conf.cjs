@@ -12,7 +12,7 @@ module.exports = (config) => {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['sharding', 'mocha'],
+    frameworks: ['mocha'],
 
     // list of files / patterns to load in the browser
     files: [
@@ -55,6 +55,12 @@ module.exports = (config) => {
     // Concurrency level
     // how many browser should be started simultaneous
     concurrency: Number.POSITIVE_INFINITY,
+
+    client: {
+      mocha: {
+        timeout: 3000,
+      },
+    },
 
     rollupPreprocessor: {
       plugins: [
