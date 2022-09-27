@@ -64,7 +64,7 @@
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-mocha": "^10.1.0",
-    "eslint-plugin-n": "^15.2.5",
+    "eslint-plugin-n": "^15.3.0",
     "eslint-plugin-unicorn": "^43.0.2",
     "karma": "^6.4.1",
     "karma-chrome-launcher": "^3.1.1",
