@@ -175,7 +175,7 @@ export default ({ strict = true } = {}) => (chai, _) => {
 
     if (arguments.length < 2) {
       this.assert(
-        typeof header !== 'undefined' || header === null,
+        header !== undefined || header === null,
         `expected header '${key}' to exist`,
         `expected header '${key}' to not exist`,
       );
@@ -442,19 +442,19 @@ export default ({ strict = true } = {}) => (chai, _) => {
       cookie = cookie.getCookie(key, Cookie.CookieAccessInfo.All);
     }
 
-    if (value !== undefined) {
+    if (value === undefined) {
+      this.assert(
+        cookie !== undefined || cookie === null,
+        `expected cookie '${key}' to exist`,
+        `expected cookie '${key}' to not exist`,
+      );
+    } else {
       this.assert(
         cookie.value === value,
         `expected cookie '${key}' to have value #{exp} but got #{act}`,
         `expected cookie '${key}' to not have value #{exp}`,
         value,
         cookie.value,
-      );
-    } else {
-      this.assert(
-        typeof cookie !== 'undefined' || cookie === null,
-        `expected cookie '${key}' to exist`,
-        `expected cookie '${key}' to not exist`,
       );
     }
   });
