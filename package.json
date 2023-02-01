@@ -76,7 +76,7 @@
     "karma-sourcemap-loader": "^0.3.8",
     "karma-spec-reporter": "^0.0.36",
     "mocha": "^10.2.0",
-    "puppeteer": "^19.4.1",
+    "puppeteer": "^19.6.2",
     "rollup": "^3.9.0",
     "rollup-plugin-istanbul": "^4.0.0",
     "superagent": "^8.0.9",
