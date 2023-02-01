@@ -173,7 +173,7 @@ expect(res).to.not.have.cookie('PHPSESSID');
 
 See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
 
-[build-badge]: https://img.shields.io/github/workflow/status/dotcore64/chai-superagent/test/master?style=flat-square
+[build-badge]: https://img.shields.io/github/actions/workflow/status/dotcore64/chai-superagent/test.yml?event=push&style=flat-square
 [build]: https://github.com/dotcore64/chai-superagent/actions
 
 [npm-badge]: https://img.shields.io/npm/v/chai-superagent.svg?style=flat-square
