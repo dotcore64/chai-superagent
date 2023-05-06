@@ -81,6 +81,6 @@
     "rollup-plugin-istanbul": "^4.0.0",
     "superagent": "^8.0.9",
     "superagent-prefix": "^0.0.2",
-    "typescript": "^5.0.3"
+    "typescript": "^5.0.4"
   }
 }
