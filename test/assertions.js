@@ -1,7 +1,7 @@
 import { expect, use } from 'chai';
 import { agent as Agent } from 'superagent';
 
-// eslint-disable-next-line import/no-unresolved,n/no-missing-import
+// eslint-disable-next-line import/no-unresolved
 import superagent from 'chai-superagent';
 
 use(superagent({ strict: false }));

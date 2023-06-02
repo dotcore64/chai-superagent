@@ -3,7 +3,7 @@ import { expect, use } from 'chai';
 import request from 'superagent';
 import prefix from 'superagent-prefix';
 
-// eslint-disable-next-line import/no-unresolved,n/no-missing-import
+// eslint-disable-next-line import/no-unresolved
 import superagent from 'chai-superagent';
 
 use(superagent());
