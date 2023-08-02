@@ -48,7 +48,7 @@ jobs:
       - name: Test
         run: npm run cover
         env:
-          HTTPBIN_BASEURL: http://httpbin
+          HTTPBIN_BASEURL: http://localhost
 
       - name: Install lcov
         run: |
