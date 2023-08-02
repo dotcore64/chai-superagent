@@ -8,7 +8,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    container: tomashgombosh/chrome-firefox
+    container: ubuntu:latest
 
     strategy:
       matrix:
@@ -42,6 +42,13 @@ jobs:
 
       - name: Lint
         run: npm run lint
+
+      - name: Install dependencies
+        run: |
+          apt update
+          apt install -y software-properties-common
+          add-apt-repository ppa:mozillateam/ppa
+          apt install -y firefox-esr libglib2.0-0 libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon-x11-0 libgbm1
 
       - name: Test
         run: npm run cover
