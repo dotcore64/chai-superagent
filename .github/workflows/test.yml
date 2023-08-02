@@ -46,7 +46,7 @@ jobs:
       - name: deps
         run: |
           apt-get update
-          apt-get install -y firefox libglib2.0-0 libnss
+          apt-get install -y firefox libglib2.0-0 libnss3
 
       - name: Test
         run: npm run cover
