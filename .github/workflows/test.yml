@@ -8,6 +8,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    container: node:lts
 
     strategy:
       matrix:
