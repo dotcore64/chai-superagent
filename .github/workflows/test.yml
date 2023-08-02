@@ -21,7 +21,7 @@ jobs:
 
     services:
       # Label used to access the service container
-      httbin:
+      httpbin:
         # Docker Hub image
         image: kennethreitz/httpbin
         ports:
