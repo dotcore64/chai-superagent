@@ -43,6 +43,12 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: deps
+        uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: ia32-libs-gtk firefox
+          version: 1.0
+
       - name: Test
         run: npm run cover
         env:
