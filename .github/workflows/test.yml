@@ -43,10 +43,10 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Install lcov
+      - name: Install unzip
         run: |
-          sudo apt update
-          sudo apt install -y unzip
+          apt update
+          apt install -y unzip
 
       - uses: browser-actions/setup-chromium@latest
       - uses: browser-actions/setup-firefox@latest
@@ -58,8 +58,8 @@ jobs:
 
       - name: Install lcov
         run: |
-          sudo apt update
-          sudo apt install -y lcov
+          apt update
+          apt install -y lcov
 
       - name: Merge lcov reports
         run: find coverage -name lcov.info -exec echo -a \"{}\" \; | xargs lcov -o coverage/lcov.info
