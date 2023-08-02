@@ -1,6 +1,8 @@
 // Karma configuration
 // Generated on Wed May 11 2016 23:26:57 GMT+0900 (JST)
 
+const { env } = require('node:process');
+
 process.env.NODE_ENV = 'test';
 if (!process.env.CHROME_BIN) process.env.CHROME_BIN = require('puppeteer').executablePath(); // eslint-disable-line global-require
 
@@ -65,11 +67,19 @@ module.exports = (config) => {
     rollupPreprocessor: {
       plugins: [
         require('rollup-plugin-istanbul')({ exclude: ['**/test/**', 'node_modules/**'] }), // eslint-disable-line global-require
-        require('@rollup/plugin-alias')({ entries: { 'node:http': 'test/http-polyfill.js' } }), // eslint-disable-line global-require
+        require('@rollup/plugin-alias')({ // eslint-disable-line global-require
+          entries: {
+            'node:http': 'test/http-polyfill.js',
+            'node:process': 'test/process-polyfill.js',
+          },
+        }),
         require('@rollup/plugin-node-resolve').default({ // eslint-disable-line global-require
           mainFields: ['module', 'browser', 'main'],
         }),
         require('@rollup/plugin-commonjs')({ include: 'node_modules/**' }), // eslint-disable-line global-require
+        require('@rollup/plugin-replace')({ // eslint-disable-line global-require
+          'env.HTTPBIN_BASEURL': JSON.stringify(env.HTTPBIN_BASEURL),
+        }),
       ],
       output: {
         format: 'esm',
