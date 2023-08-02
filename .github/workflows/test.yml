@@ -19,6 +19,14 @@ jobs:
           - 7
           - 8
 
+    services:
+      # Label used to access the service container
+      httbin:
+        # Docker Hub image
+        image: kennethreitz/httpbin
+        ports:
+          - 80:80
+
     steps:
       - uses: actions/checkout@v3
 
