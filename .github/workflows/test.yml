@@ -46,7 +46,7 @@ jobs:
       - name: deps
         uses: awalsh128/cache-apt-pkgs-action@latest
         with:
-          packages: ia32-libs-gtk firefox
+          packages: firefox
           version: 1.0
 
       - name: Test
