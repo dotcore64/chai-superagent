@@ -13,7 +13,7 @@ describe('superagent', () => {
   const isBrowser = typeof window === 'object';
 
   describe('Browser and Node.js', () => {
-    it('can request a web page', () => request
+    it('can request a web page', () => request // eslint-disable-line mocha/no-setup-in-describe
       .get('https://httpbin.org/html')
       .then((res) => {
         expect(res).to.have.status(200);
@@ -27,7 +27,7 @@ describe('superagent', () => {
         isBrowser && expect(res.body).to.be.null; // eslint-disable-line no-unused-expressions
       })).timeout(10_000).retries(3);
 
-    it('can request JSON data', () => request
+    it('can request JSON data', () => request // eslint-disable-line mocha/no-setup-in-describe
       .get('https://httpbin.org/get')
       .then((res) => {
         expect(res).to.have.status(200);
@@ -38,7 +38,7 @@ describe('superagent', () => {
         expect(res.body).to.be.an('object');
       })).timeout(10_000).retries(3);
 
-    it('can read response headers', () => request
+    it('can read response headers', () => request // eslint-disable-line mocha/no-setup-in-describe
       .get('https://httpbin.org/response-headers')
       .query({ 'content-type': 'application/json' })
       .query({ pragma: 'test1' })
@@ -60,7 +60,7 @@ describe('superagent', () => {
         isBrowser && expect(res).to.not.have.header('X-API-Key'); // eslint-disable-line no-unused-expressions
       })).timeout(10_000).retries(3);
 
-    it('succeeds when response has an error status', () => request
+    it('succeeds when response has an error status', () => request // eslint-disable-line mocha/no-setup-in-describe
       .get('https://httpbin.org/status/400')
       .ok((res) => res.status === 400)
       .then((res) => {
