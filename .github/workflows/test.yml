@@ -25,7 +25,7 @@ jobs:
         # Docker Hub image
         image: kennethreitz/httpbin
         ports:
-          - 443:443
+          - 80:80
 
     steps:
       - uses: actions/checkout@v3
@@ -47,7 +47,7 @@ jobs:
       - name: Test
         run: npm run cover
         env:
-            HTTPBIN_HOSTNAME: localhost
+          HTTPBIN_BASEURL: http://localhost
 
       - name: Install lcov
         run: |
