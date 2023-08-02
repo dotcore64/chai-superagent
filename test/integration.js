@@ -17,7 +17,7 @@ describe('superagent', () => {
 
   describe('Browser and Node.js', () => {
     it('can request a web page', () => request
-      .get(`https://${BASEURL}/html`)
+      .get(`${BASEURL}/html`)
       .then((res) => {
         expect(res).to.have.status(200);
         expect(res).to.be.html; // eslint-disable-line no-unused-expressions
@@ -31,7 +31,7 @@ describe('superagent', () => {
       }));
 
     it('can request JSON data', () => request
-      .get(`https://${BASEURL}/get`)
+      .get(`${BASEURL}/get`)
       .then((res) => {
         expect(res).to.have.status(200);
         expect(res).to.be.json; // eslint-disable-line no-unused-expressions
@@ -42,7 +42,7 @@ describe('superagent', () => {
       }));
 
     it('can read response headers', () => request
-      .get(`https://${BASEURL}/response-headers`)
+      .get(`${BASEURL}/response-headers`)
       .query({ 'content-type': 'application/json' })
       .query({ pragma: 'test1' })
       .query({ location: 'test2' })
@@ -64,7 +64,7 @@ describe('superagent', () => {
       }));
 
     it('succeeds when response has an error status', () => request
-      .get(`https://${BASEURL}/status/400`)
+      .get(`${BASEURL}/status/400`)
       .ok((res) => res.status === 400)
       .then((res) => {
         expect(res).to.have.status(400);
