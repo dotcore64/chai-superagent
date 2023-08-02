@@ -1,4 +1,5 @@
 import { createServer } from 'node:http';
+import { env } from 'node:process';
 import { expect, use } from 'chai';
 import request from 'superagent';
 import prefix from 'superagent-prefix';
@@ -8,13 +9,15 @@ import superagent from 'chai-superagent';
 
 use(superagent());
 
+const HOSTNAME = env.HTTPBIN_HOSTNAME ?? 'httpbin.org';
+
 describe('superagent', () => {
   const isNode = typeof process === 'object';
   const isBrowser = typeof window === 'object';
 
   describe('Browser and Node.js', () => {
     it('can request a web page', () => request
-      .get('https://httpbin/html')
+      .get(`https://${HOSTNAME}/html`)
       .then((res) => {
         expect(res).to.have.status(200);
         expect(res).to.be.html; // eslint-disable-line no-unused-expressions
@@ -28,7 +31,7 @@ describe('superagent', () => {
       }));
 
     it('can request JSON data', () => request
-      .get('https://httpbin/get')
+      .get(`https://${HOSTNAME}/get`)
       .then((res) => {
         expect(res).to.have.status(200);
         expect(res).to.be.json; // eslint-disable-line no-unused-expressions
@@ -39,7 +42,7 @@ describe('superagent', () => {
       }));
 
     it('can read response headers', () => request
-      .get('https://httpbin/response-headers')
+      .get(`https://${HOSTNAME}/response-headers`)
       .query({ 'content-type': 'application/json' })
       .query({ pragma: 'test1' })
       .query({ location: 'test2' })
@@ -61,7 +64,7 @@ describe('superagent', () => {
       }));
 
     it('succeeds when response has an error status', () => request
-      .get('https://httpbin/status/400')
+      .get(`https://${HOSTNAME}/status/400`)
       .ok((res) => res.status === 400)
       .then((res) => {
         expect(res).to.have.status(400);

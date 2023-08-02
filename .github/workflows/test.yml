@@ -46,6 +46,8 @@ jobs:
 
       - name: Test
         run: npm run cover
+        env:
+            HTTPBIN_HOSTNAME: localhost
 
       - name: Install lcov
         run: |
