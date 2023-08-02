@@ -1,4 +1,5 @@
 import { createServer } from 'node:http';
+import { env } from 'node:process';
 import { expect, use } from 'chai';
 import request from 'superagent';
 import prefix from 'superagent-prefix';
@@ -8,13 +9,15 @@ import superagent from 'chai-superagent';
 
 use(superagent());
 
+const BASEURL = env.HTTPBIN_BASEURL ?? 'https://httpbin.org';
+
 describe('superagent', () => {
   const isNode = typeof process === 'object';
   const isBrowser = typeof window === 'object';
 
   describe('Browser and Node.js', () => {
-    it('can request a web page', () => request // eslint-disable-line mocha/no-setup-in-describe
-      .get('https://httpbin.org/html')
+    it('can request a web page', () => request
+      .get(`${BASEURL}/html`)
       .then((res) => {
         expect(res).to.have.status(200);
         expect(res).to.be.html; // eslint-disable-line no-unused-expressions
@@ -25,10 +28,10 @@ describe('superagent', () => {
         // Slightly different behavior in SuperAgent in Node/browsers
         isNode && expect(res.body).to.deep.equal({}); // eslint-disable-line no-unused-expressions
         isBrowser && expect(res.body).to.be.null; // eslint-disable-line no-unused-expressions
-      })).timeout(10_000).retries(3);
+      }));
 
-    it('can request JSON data', () => request // eslint-disable-line mocha/no-setup-in-describe
-      .get('https://httpbin.org/get')
+    it('can request JSON data', () => request
+      .get(`${BASEURL}/get`)
       .then((res) => {
         expect(res).to.have.status(200);
         expect(res).to.be.json; // eslint-disable-line no-unused-expressions
@@ -36,10 +39,10 @@ describe('superagent', () => {
         expect(res).to.not.be.text; // eslint-disable-line no-unused-expressions
         expect(res.text).to.be.a('string').with.length.above(0);
         expect(res.body).to.be.an('object');
-      })).timeout(10_000).retries(3);
+      }));
 
-    it('can read response headers', () => request // eslint-disable-line mocha/no-setup-in-describe
-      .get('https://httpbin.org/response-headers')
+    it('can read response headers', () => request
+      .get(`${BASEURL}/response-headers`)
       .query({ 'content-type': 'application/json' })
       .query({ pragma: 'test1' })
       .query({ location: 'test2' })
@@ -58,14 +61,14 @@ describe('superagent', () => {
         isNode && expect(res).to.have.header('X-API-Key', 'test3'); // eslint-disable-line no-unused-expressions
         isBrowser && expect(res).to.not.have.header('Location'); // eslint-disable-line no-unused-expressions
         isBrowser && expect(res).to.not.have.header('X-API-Key'); // eslint-disable-line no-unused-expressions
-      })).timeout(10_000).retries(3);
+      }));
 
-    it('succeeds when response has an error status', () => request // eslint-disable-line mocha/no-setup-in-describe
-      .get('https://httpbin.org/status/400')
+    it('succeeds when response has an error status', () => request
+      .get(`${BASEURL}/status/400`)
       .ok((res) => res.status === 400)
       .then((res) => {
         expect(res).to.have.status(400);
-      })).timeout(10_000).retries(3);
+      }));
 
     it('should reject non valid instances in strict mode', () => {
       expect(
