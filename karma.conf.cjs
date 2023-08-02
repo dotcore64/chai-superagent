@@ -3,8 +3,8 @@
 
 const { env } = require('node:process');
 
-process.env.NODE_ENV = 'test';
-if (!process.env.CHROME_BIN) process.env.CHROME_BIN = require('puppeteer').executablePath(); // eslint-disable-line global-require
+env.NODE_ENV = 'test';
+if (!env.CHROME_BIN) env.CHROME_BIN = require('puppeteer').executablePath(); // eslint-disable-line global-require
 
 module.exports = (config) => {
   config.set({
