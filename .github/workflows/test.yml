@@ -43,12 +43,11 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Install unzip
+      - name: Install chromium for its dependencies
         run: |
           apt update
-          apt install -y unzip
+          apt install -y chromium-browser
 
-      - uses: browser-actions/setup-chromium@latest
       - uses: browser-actions/setup-firefox@latest
 
       - name: Test
