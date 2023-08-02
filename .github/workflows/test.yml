@@ -43,6 +43,11 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Install lcov
+        run: |
+          sudo apt update
+          sudo apt install -y unzip
+
       - uses: browser-actions/setup-chromium@latest
       - uses: browser-actions/setup-firefox@latest
 
