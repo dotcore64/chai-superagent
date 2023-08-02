@@ -45,9 +45,10 @@ jobs:
 
       - name: deps
         run: |
+          apt update
+          apt install software-properties-common
           add-apt-repository ppa:mozillateam/ppa
-          apt-get update
-          apt-get install -y firefox-esr libglib2.0-0 libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2
+          apt install -y firefox libglib2.0-0 libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2
 
       - name: Test
         run: npm run cover
