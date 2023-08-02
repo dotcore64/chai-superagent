@@ -46,7 +46,7 @@ jobs:
       - name: Install chromium for its dependencies
         run: |
           apt update
-          apt install -y chromium-browser
+          apt install -y chromium-browser bzip2
 
       - uses: browser-actions/setup-firefox@latest
 
