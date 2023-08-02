@@ -43,12 +43,11 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Install chromium for its dependencies
+      - name: Install chromium for its dependencies and firefox
         run: |
           apt update
-          apt install -y chromium-browser bzip2
-
-      - uses: browser-actions/setup-firefox@latest
+          apt install -y chromium-browser snapd
+          snap install firefox
 
       - name: Test
         run: npm run cover
