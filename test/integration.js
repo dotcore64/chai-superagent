@@ -25,7 +25,7 @@ describe('superagent', () => {
         // Slightly different behavior in SuperAgent in Node/browsers
         isNode && expect(res.body).to.deep.equal({}); // eslint-disable-line no-unused-expressions
         isBrowser && expect(res.body).to.be.null; // eslint-disable-line no-unused-expressions
-      }));
+      })).timeout(10_000);
 
     it('can request JSON data', () => request
       .get('https://httpbin.org/get')
@@ -36,7 +36,7 @@ describe('superagent', () => {
         expect(res).to.not.be.text; // eslint-disable-line no-unused-expressions
         expect(res.text).to.be.a('string').with.length.above(0);
         expect(res.body).to.be.an('object');
-      }));
+      })).timeout(10_000);
 
     it('can read response headers', () => request
       .get('https://httpbin.org/response-headers')
@@ -58,14 +58,14 @@ describe('superagent', () => {
         isNode && expect(res).to.have.header('X-API-Key', 'test3'); // eslint-disable-line no-unused-expressions
         isBrowser && expect(res).to.not.have.header('Location'); // eslint-disable-line no-unused-expressions
         isBrowser && expect(res).to.not.have.header('X-API-Key'); // eslint-disable-line no-unused-expressions
-      }));
+      })).timeout(10_000);
 
     it('succeeds when response has an error status', () => request
       .get('https://httpbin.org/status/400')
       .ok((res) => res.status === 400)
       .then((res) => {
         expect(res).to.have.status(400);
-      }));
+      })).timeout(10_000);
 
     it('should reject non valid instances in strict mode', () => {
       expect(
