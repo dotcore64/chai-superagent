@@ -46,9 +46,9 @@ jobs:
       - name: Install chromium for its dependencies and firefox
         run: |
           apt update
-          apt install -y chromium-browser snapd
-          systemctl start snapd
-          snap install firefox
+          apt install -y software-properties-common
+          add-apt-repository ppa:mozillateam/ppa
+          apt install -y chromium-browser firefox
 
       - name: Test
         run: npm run cover
