@@ -43,11 +43,8 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: deps
-        run: |
-          apt update
-          apt install -y snapd libglib2.0-0 libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon-x11-0 libgbm1
-          snap install firefox
+      - uses: browser-actions/setup-chromium@latest
+      - uses: browser-actions/setup-firefox@latest
 
       - name: Test
         run: npm run cover
