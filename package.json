@@ -80,7 +80,7 @@
     "puppeteer": "^21.1.1",
     "rollup": "^3.27.0",
     "rollup-plugin-istanbul": "^4.0.0",
-    "superagent": "^8.0.9",
+    "superagent": "^8.1.2",
     "superagent-prefix": "^0.0.2",
     "typescript": "^5.2.2"
   }
