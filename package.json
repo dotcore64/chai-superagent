@@ -78,7 +78,7 @@
     "karma-spec-reporter": "^0.0.36",
     "mocha": "^10.2.0",
     "puppeteer": "^21.1.1",
-    "rollup": "^3.27.0",
+    "rollup": "^3.28.1",
     "rollup-plugin-istanbul": "^4.0.0",
     "superagent": "^8.0.9",
     "superagent-prefix": "^0.0.2",
