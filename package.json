@@ -58,7 +58,7 @@
     "@rollup/plugin-replace": "^5.0.2",
     "@types/chai": "^4.3.5",
     "@types/node": "^20.8.0",
-    "@types/superagent": "^4.1.18",
+    "@types/superagent": "^4.1.19",
     "c8": "^8.0.1",
     "chai": "^4.3.8",
     "eslint": "^8.50.0",
