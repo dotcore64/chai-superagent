@@ -18,6 +18,9 @@ jobs:
         superagent-version:
           - 7
           - 8
+        chai-version:
+          - 4
+          - 5
 
     services:
       # Label used to access the service container
@@ -41,6 +44,9 @@ jobs:
 
       - name: Install superagent ${{ matrix.superagent-version }}
         run: npm install superagent@${{ matrix.superagent-version }}
+
+      - name: Install chai ${{ matrix.chai-version }}
+        run: npm install chai@${{ matrix.chai-version }}
 
       - name: Lint
         run: npm run lint
