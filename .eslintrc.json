@@ -1,5 +1,10 @@
 {
-  "extends": ["airbnb-base", "plugin:n/recommended", "plugin:unicorn/recommended", "plugin:eslint-comments/recommended"],
+  "extends": [
+    "airbnb-base",
+    "plugin:n/recommended",
+    "plugin:unicorn/recommended",
+    "plugin:eslint-comments/recommended"
+  ],
   "plugins": ["n", "unicorn", "eslint-comments"],
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -9,13 +14,14 @@
     "no-underscore-dangle": ["error", { "allow": ["_obj"] }],
     "max-len": ["error", { "code": 140, "comments": 160 }],
     "import/extensions": 0,
-    "import/no-extraneous-dependencies": ["error", {
-      "devDependencies": [
-        "./test/*.js",
-        "karma.conf.cjs"
-      ]
-    }],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": ["./test/*.js", "karma.conf.cjs"]
+      }
+    ],
     "unicorn/prevent-abbreviations": 0,
+    "unicorn/no-anonymous-default-export": 0,
     "unicorn/no-array-for-each": 0,
     "unicorn/no-array-callback-reference": 0,
     "eslint-comments/no-unused-disable": "error"
