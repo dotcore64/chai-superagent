@@ -17,6 +17,7 @@ jobs:
         superagent-version:
           - 7
           - 8
+          - 9
         chai-version:
           - 4
           - 5
