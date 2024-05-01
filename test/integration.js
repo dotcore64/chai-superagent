@@ -130,7 +130,7 @@ describe('superagent', () => {
           const { address, port } = server.address();
 
           request
-            .get(`http://${address}:${port}/`)
+            .get(`http://${address.replace('::', 'localhost')}:${port}/`)
             .set('X-API-Key', 'test2')
             .end((err, res) => {
               expect(res).to.have.status(200);
@@ -150,7 +150,7 @@ describe('superagent', () => {
 
         server.listen(0, () => {
           const { address, port } = server.address();
-          const agent = request.agent().use(prefix(`http://${address}:${port}`));
+          const agent = request.agent().use(prefix(`http://${address.replace('::', 'localhost')}:${port}`));
 
           agent
             .get('/')
