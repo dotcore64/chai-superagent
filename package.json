@@ -57,7 +57,7 @@
     "@rollup/plugin-commonjs": "^25.0.8",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-replace": "^5.0.5",
-    "@types/chai": "^4.3.14",
+    "@types/chai": "^4.3.16",
     "@types/node": "^20.13.0",
     "@types/superagent": "^8.1.7",
     "c8": "^10.1.2",
