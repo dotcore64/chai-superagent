@@ -273,12 +273,14 @@ describe('assertions', () => {
       headers: {
         'set-cookie': [
           'name=value',
-          'name2=value2; Expires=Wed, 09 Jun 2024 10:18:14 GMT',
+          'name2=value2; Expires=Wed, 09 Jun 2124 10:18:14 GMT',
+          'name3=value2; Expires=Wed, 09 Jun 2023 10:18:14 GMT',
         ],
       },
     };
     expect(res).to.have.cookie('name');
     expect(res).to.have.cookie('name2');
+    expect(res).to.not.have.cookie('name3');
     expect(res).to.have.cookie('name', 'value');
     expect(res).to.have.cookie('name2', 'value2');
     expect(res).to.not.have.cookie('bar');
@@ -306,7 +308,7 @@ describe('assertions', () => {
       headers: {
         'set-cookie': [
           'name=value;',
-          'name2=value2; Expires=Wed, 09 Jun 2024 10:18:14 GMT',
+          'name2=value2; Expires=Wed, 09 Jun 2124 10:18:14 GMT',
           'name3=value3; Domain=.somedomain.com',
         ],
       },
@@ -342,7 +344,7 @@ describe('assertions', () => {
 
     const cookies = [
       'name=value',
-      'name2=value2; Expires=Wed, 09 Jun 2024 10:18:14 GMT',
+      'name2=value2; Expires=Wed, 09 Jun 2124 10:18:14 GMT',
       'name3=value3; Domain=.somedomain.com',
     ];
 
