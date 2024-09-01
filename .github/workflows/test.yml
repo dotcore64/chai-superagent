@@ -19,6 +19,7 @@ jobs:
           - 7
           - 8
           - 9
+          - 10
         chai-version:
           - 4
           - 5
