@@ -55,7 +55,7 @@
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@rollup/plugin-alias": "^5.1.0",
     "@rollup/plugin-commonjs": "^26.0.1",
-    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-node-resolve": "^15.3.0",
     "@rollup/plugin-replace": "^5.0.7",
     "@types/chai": "^4.3.19",
     "@types/node": "^22.5.2",
