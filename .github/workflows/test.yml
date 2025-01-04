@@ -59,12 +59,12 @@ jobs:
           HTTPBIN_BASEURL: http://localhost
 
       - name: Install lcov
-        run: |
-          sudo apt update
-          sudo apt install lcov
+        uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: lcov
 
       - name: Merge lcov reports
-        run: find coverage -name lcov.info -exec echo -a \"{}\" \; | xargs lcov -o coverage/lcov.info
+        run: find coverage -name lcov.info -exec echo -n -a \"{}\" \; | xargs -d '\n' -I{} echo lcov -o coverage/lcov.info {}
 
       - name: Publish to coveralls.io
         uses: coverallsapp/github-action@master
