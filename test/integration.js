@@ -13,6 +13,7 @@ const BASEURL = env.HTTPBIN_BASEURL ?? 'https://httpbin.org';
 
 describe('superagent', () => {
   const isNode = typeof process === 'object';
+  // eslint-disable-next-line unicorn/prefer-global-this
   const isBrowser = typeof window === 'object';
 
   describe('Browser and Node.js', () => {
