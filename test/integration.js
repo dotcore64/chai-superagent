@@ -9,9 +9,17 @@ import superagent from 'chai-superagent';
 
 use(superagent());
 
+// https://github.com/ladjs/superagent/pull/1805
+// https://github.com/ladjs/superagent/pull/1829
+const { SUPERAGENT_VERSION } = env;
 const BASEURL = env.HTTPBIN_BASEURL ?? 'https://httpbin.org';
 
-const normalizeAddress = ({ address, family, port }) => `http://${(family === 'IPv6' ? `[${address}]` : address)}:${port}/`;
+const normalizeAddress = ({ address, family, port }) => `http://${(SUPERAGENT_VERSION === '9'
+  ? address.replace('::', 'localhost')
+  : (family === 'IPv6'
+    ? `[${address}]`
+    : address
+  ))}:${port}/`;
 
 describe('superagent', () => {
   const isNode = typeof process === 'object';
