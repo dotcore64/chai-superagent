@@ -57,6 +57,7 @@ jobs:
         run: npm run cover
         env:
           HTTPBIN_BASEURL: http://localhost
+          SUPERAGENT_VERSION: ${{ matrix.superagent-version }}
 
       - name: Install lcov
         uses: awalsh128/cache-apt-pkgs-action@latest
