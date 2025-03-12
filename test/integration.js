@@ -1,6 +1,5 @@
 import { createServer } from 'node:http';
 import { env } from 'node:process';
-import { isIP } from 'node:net';
 import { expect, use } from 'chai';
 import request from 'superagent';
 import prefix from 'superagent-prefix';
@@ -12,7 +11,7 @@ use(superagent());
 
 const BASEURL = env.HTTPBIN_BASEURL ?? 'https://httpbin.org';
 
-const normalizeAddress = (url) => (isIP(url) === 6 ? `[${url}]` : url);
+const normalizeAddress = ({ address, family, port }) => `http://${(family === 'IPv6' ? `[${address}]` : address)}:${port}/`;
 
 describe('superagent', () => {
   const isNode = typeof process === 'object';
@@ -131,10 +130,8 @@ describe('superagent', () => {
         });
 
         server.listen(0, () => {
-          const { address, port } = server.address();
-
           request
-            .get(`http://${normalizeAddress(address)}:${port}/`)
+            .get(normalizeAddress(server.address()))
             .set('X-API-Key', 'test2')
             .end((err, res) => {
               expect(res).to.have.status(200);
@@ -153,8 +150,7 @@ describe('superagent', () => {
         });
 
         server.listen(0, () => {
-          const { address, port } = server.address();
-          const agent = request.agent().use(prefix(`http://${normalizeAddress(address)}:${port}`));
+          const agent = request.agent().use(prefix(normalizeAddress(server.address())));
 
           agent
             .get('/')

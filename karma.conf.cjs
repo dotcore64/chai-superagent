@@ -71,7 +71,6 @@ module.exports = (config) => {
           entries: {
             'node:http': 'test/http-polyfill.js',
             'node:process': 'test/process-polyfill.js',
-            'node:net': 'test/net-polyfill.js',
           },
         }),
         require('@rollup/plugin-node-resolve').default({ // eslint-disable-line global-require
