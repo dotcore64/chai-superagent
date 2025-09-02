@@ -8,6 +8,14 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      # Label used to access the service container
+      httpbin:
+        # Docker Hub image
+        image: kennethreitz/httpbin
+        ports:
+          - 80:80
+
     steps:
     - uses: actions/checkout@v5
 
@@ -24,6 +32,9 @@ jobs:
 
     - name: Test
       run: npm test
+      env:
+        HTTPBIN_BASEURL: http://localhost
+        SUPERAGENT_VERSION: ${{ matrix.superagent-version }}
 
     - run: npm publish
       env:
