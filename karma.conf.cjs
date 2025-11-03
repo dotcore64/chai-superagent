@@ -6,7 +6,7 @@ const { env } = require('node:process');
 env.NODE_ENV = 'test';
 if (!env.CHROME_BIN) env.CHROME_BIN = require('puppeteer').executablePath(); // eslint-disable-line global-require
 
-module.exports = (config) => {
+module.exports = async (config) => {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -67,7 +67,7 @@ module.exports = (config) => {
     rollupPreprocessor: {
       plugins: [
         require('rollup-plugin-istanbul')({ exclude: ['**/test/**', 'node_modules/**'] }), // eslint-disable-line global-require
-        require('@rollup/plugin-alias')({ // eslint-disable-line global-require
+        (await import('@rollup/plugin-alias')).default({ // eslint-disable-line import/no-unresolved
           entries: {
             'node:http': 'test/http-polyfill.js',
             'node:process': 'test/process-polyfill.js',
