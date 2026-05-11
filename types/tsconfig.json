@@ -1,15 +1,12 @@
 {
   "compilerOptions": {
     "module": "nodenext",
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": false,
-    "strictFunctionTypes": true,
-    "baseUrl": "../",
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
+    "erasableSyntaxOnly": true,
+    "verbatimModuleSyntax": true,
+    "forceConsistentCasingInFileNames": true,
     "noEmit": true
   },
-  "files": [
-    "index.d.ts",
-    "test.ts"
-  ]
+  "files": ["index.d.ts", "test.ts"]
 }
