@@ -19,6 +19,7 @@ module.exports = async (config) => {
     files: [
       { pattern: "test/assertions.js", type: "module" },
       { pattern: "test/integration.js", type: "module" },
+      { pattern: "test/test-polyfill.js", type: "module" },
     ],
 
     // preprocess matching files before serving them to the browser
@@ -73,6 +74,7 @@ module.exports = async (config) => {
           entries: {
             "node:http": "test/http-polyfill.js",
             "node:process": "test/process-polyfill.js",
+            "node:test": "test/test-polyfill.js",
           },
         }),
         require("@rollup/plugin-node-resolve").default({

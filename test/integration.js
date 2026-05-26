@@ -1,3 +1,4 @@
+import { describe, it } from "node:test";
 import { createServer } from "node:http";
 import { env } from "node:process";
 import { expect, use } from "chai";
@@ -143,7 +144,7 @@ describe("superagent", () => {
 
   if (isNode) {
     describe("Node.js", () => {
-      it("can request an already existing url", (done) => {
+      it("can request an already existing url", (_, done) => {
         const server = createServer((req, res) => {
           expect(req.headers["x-api-key"]).to.equal("test2");
           res.writeHeader(200, { "content-type": "text/plain" });
@@ -165,7 +166,7 @@ describe("superagent", () => {
         });
       });
 
-      it("agent can be used to persist cookies", (done) => {
+      it("agent can be used to persist cookies", (_, done) => {
         const server = createServer((req, res) => {
           res.setHeader("Set-Cookie", "mycookie=test");
           res.writeHeader(200, { "content-type": "text/plain" });

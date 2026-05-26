@@ -5,7 +5,7 @@
   "author": "Julian Grinblat <julian@dotcore.co.il>",
   "license": "MIT",
   "engines": {
-    "node": ">=20.0.0"
+    "node": "^20.13.0 || >=22"
   },
   "type": "module",
   "keywords": [
@@ -36,7 +36,7 @@
   "scripts": {
     "lint": "eslint --cache .",
     "test:types": "tsc -p types",
-    "test:node": "mocha",
+    "test:node": "node --test",
     "test:browser": "karma start karma.conf.cjs --single-run --no-auto-watch",
     "test": "npm run test:types && npm run test:node && npm run test:browser",
     "cover": "npm run test:types && c8 npm run test:node && npm run test:browser"
