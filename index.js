@@ -5,7 +5,7 @@ import { Request, Response, agent } from 'superagent';
 
 // This gets around the fact that in browser environments, the `Agent` constructor is not exported
 function Agent() {}
-// eslint-disable-next-line no-proto
+ 
 Agent.prototype = agent().__proto__; // in node environments, it is enough to set const Agent = agent
 
 /*!
@@ -57,7 +57,7 @@ export default ({ strict = true } = {}) => (chai, _) => {
       new Assertion(obj).assert(
         obj instanceof Request,
         'expected #{act} to be an instance of Request',
-        null, // eslint-disable-line unicorn/no-null
+        null,  
         true,
         obj,
         false,
@@ -70,7 +70,7 @@ export default ({ strict = true } = {}) => (chai, _) => {
       new Assertion(obj).assert(
         obj instanceof Response,
         'expected #{act} to be an instance of Response',
-        null, // eslint-disable-line unicorn/no-null
+        null,  
         true,
         obj,
         false,
@@ -83,7 +83,7 @@ export default ({ strict = true } = {}) => (chai, _) => {
       new Assertion(obj).assert(
         obj instanceof Response || obj instanceof Request,
         'expected #{act} to be an instance of Request or Response',
-        null, // eslint-disable-line unicorn/no-null
+        null,  
         true,
         obj,
         false,
@@ -96,7 +96,7 @@ export default ({ strict = true } = {}) => (chai, _) => {
       new Assertion(obj).assert(
         obj instanceof Response || obj instanceof Request || obj instanceof Agent,
         'expected #{act} to be an instance of Request or Response or Agent',
-        null, // eslint-disable-line unicorn/no-null
+        null,  
         true,
         obj,
         false,
@@ -118,14 +118,14 @@ export default ({ strict = true } = {}) => (chai, _) => {
    * @api public
    */
 
-  Assertion.addMethod('status', function (code) { // eslint-disable-line func-names
+  Assertion.addMethod('status', function (code) {  
     assertResponse(this._obj);
 
     const hasStatus = Boolean('status' in this._obj || 'statusCode' in this._obj);
     new Assertion(hasStatus).assert(
       hasStatus,
       "expected #{act} to have keys 'status', or 'statusCode'",
-      // eslint-disable-next-line unicorn/no-null
+       
       null, // never negated
       hasStatus, // expected
       this._obj, // actual
@@ -168,7 +168,7 @@ export default ({ strict = true } = {}) => (chai, _) => {
    * @api public
    */
 
-  Assertion.addMethod('header', function (key, value) { // eslint-disable-line func-names
+  Assertion.addMethod('header', function (key, value) {  
     assertResponseOrRequest(this._obj);
 
     const header = getHeader(this._obj, key);
@@ -217,7 +217,7 @@ export default ({ strict = true } = {}) => (chai, _) => {
    * @api public
    */
 
-  Assertion.addProperty('headers', function () { // eslint-disable-line func-names
+  Assertion.addProperty('headers', function () {  
     assertResponseOrRequest(this._obj);
 
     this.assert(
@@ -247,17 +247,17 @@ export default ({ strict = true } = {}) => (chai, _) => {
   function checkContentType(name) {
     const val = contentTypes[name];
 
-    Assertion.addProperty(name, function () { // eslint-disable-line func-names
+    Assertion.addProperty(name, function () {  
       assertResponseOrRequest(this._obj);
 
-      new Assertion(this._obj).to.have.headers; // eslint-disable-line no-unused-expressions
+      new Assertion(this._obj).to.have.headers;  
       const ct = getHeader(this._obj, 'content-type');
       const ins = i(ct) === 'undefined'
         ? 'headers'
         : i(ct);
 
       this.assert(
-        ct && ~ct.indexOf(val), // eslint-disable-line no-bitwise
+        ct && ~ct.indexOf(val),  
         `expected ${ins} to include '${val}'`,
         `expected ${ins} to not include '${val}'`,
       );
@@ -281,7 +281,7 @@ export default ({ strict = true } = {}) => (chai, _) => {
    * @api public
    */
 
-  Assertion.addMethod('charset', function (value) { // eslint-disable-line func-names
+  Assertion.addMethod('charset', function (value) {  
     assertResponseOrRequest(this._obj);
 
     const normalized = value.toLowerCase();
@@ -313,7 +313,7 @@ export default ({ strict = true } = {}) => (chai, _) => {
    * @api public
    */
 
-  Assertion.addProperty('redirect', function () { // eslint-disable-line func-names
+  Assertion.addProperty('redirect', function () {  
     assertResponse(this._obj);
 
     const redirectCodes = [301, 302, 303, 307, 308];
@@ -341,12 +341,12 @@ export default ({ strict = true } = {}) => (chai, _) => {
    * @api public
    */
 
-  Assertion.addMethod('redirectTo', function (destination) { // eslint-disable-line func-names
+  Assertion.addMethod('redirectTo', function (destination) {  
     assertResponse(this._obj);
 
     const { redirects } = this._obj;
 
-    new Assertion(this._obj).to.redirect; // eslint-disable-line no-unused-expressions
+    new Assertion(this._obj).to.redirect;  
 
     if (redirects?.length > 0) {
       const hasRedirected = Object.prototype.toString.call(destination) === '[object RegExp]'
@@ -383,7 +383,7 @@ export default ({ strict = true } = {}) => (chai, _) => {
    * @api public
    */
 
-  Assertion.addMethod('param', function (...args) { // eslint-disable-line func-names
+  Assertion.addMethod('param', function (...args) {  
     assertRequest(this._obj);
 
     const assertion = new Assertion();
@@ -416,14 +416,14 @@ export default ({ strict = true } = {}) => (chai, _) => {
    * @api public
    */
 
-  Assertion.addMethod('cookie', function (key, value) { // eslint-disable-line func-names
+  Assertion.addMethod('cookie', function (key, value) {  
     assertResponseOrRequestOrAgent(this._obj);
 
     if (this._obj instanceof Agent && this._obj.jar === undefined) {
       new Assertion(this._obj).assert(
         !(this._obj instanceof Agent && this._obj.jar === undefined),
         'In browsers cookies are managed automatically by the browser, so the .agent() does not isolate cookies.',
-        null, // eslint-disable-line unicorn/no-null
+        null,  
         true,
         this._obj,
         false,

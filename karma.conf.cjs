@@ -4,7 +4,7 @@
 const { env } = require('node:process');
 
 env.NODE_ENV = 'test';
-if (!env.CHROME_BIN) env.CHROME_BIN = require('puppeteer').executablePath(); // eslint-disable-line global-require
+if (!env.CHROME_BIN) env.CHROME_BIN = require('puppeteer').executablePath();  
 
 module.exports = async (config) => {
   config.set({
@@ -66,18 +66,18 @@ module.exports = async (config) => {
 
     rollupPreprocessor: {
       plugins: [
-        require('rollup-plugin-istanbul')({ exclude: ['**/test/**', 'node_modules/**'] }), // eslint-disable-line global-require
+        require('rollup-plugin-istanbul')({ exclude: ['**/test/**', 'node_modules/**'] }),  
         (await import('@rollup/plugin-alias')).default({ // eslint-disable-line import/no-unresolved
           entries: {
             'node:http': 'test/http-polyfill.js',
             'node:process': 'test/process-polyfill.js',
           },
         }),
-        require('@rollup/plugin-node-resolve').default({ // eslint-disable-line global-require
+        require('@rollup/plugin-node-resolve').default({  
           mainFields: ['module', 'browser', 'main'],
         }),
-        require('@rollup/plugin-commonjs')({ include: 'node_modules/**' }), // eslint-disable-line global-require
-        require('@rollup/plugin-replace')({ // eslint-disable-line global-require
+        require('@rollup/plugin-commonjs')({ include: 'node_modules/**' }),  
+        require('@rollup/plugin-replace')({  
           'env.HTTPBIN_BASEURL': JSON.stringify(env.HTTPBIN_BASEURL),
         }),
       ],
