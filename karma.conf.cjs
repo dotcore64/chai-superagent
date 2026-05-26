@@ -73,6 +73,7 @@ module.exports = async (config) => {
           entries: {
             "node:http": "test/http-polyfill.js",
             "node:process": "test/process-polyfill.js",
+            "node:test": "test/test-polyfill.js",
           },
         }),
         require("@rollup/plugin-node-resolve").default({
