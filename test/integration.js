@@ -156,12 +156,17 @@ describe("superagent", () => {
             .get(normalizeAddress(server.address()))
             .set("X-API-Key", "test2")
             .end((err, res) => {
-              expect(res).to.have.status(200);
-              expect(res.text).to.equal("hello world");
-              server.once("close", () => {
-                done(err);
-              });
-              server.close();
+              try {
+                expect(res).to.have.status(200);
+                expect(res.text).to.equal("hello world");
+                server.once("close", () => {
+                  done(err);
+                });
+              } catch (error) {
+                done(error);
+              } finally {
+                server.close();
+              }
             });
         });
       });
@@ -173,25 +178,30 @@ describe("superagent", () => {
           res.end(`your cookie: ${req.headers.cookie}`);
         });
 
-        server.listen(0, () => {
-          const agent = request
-            .agent()
-            .use(prefix(normalizeAddress(server.address())));
+        server.listen(0, async () => {
+          try {
+            const agent = request
+              .agent()
+              .use(prefix(normalizeAddress(server.address())));
 
-          agent
-            .get("/")
-            .then((res) => {
-              expect(res.headers["set-cookie"][0]).to.equal("mycookie=test");
-              expect(res.text).to.equal("your cookie: undefined");
-            })
-            .then(() => agent.get("/"))
-            .then((res) => {
-              expect(res.text).to.equal("your cookie: mycookie=test");
-              server.once("close", () => {
-                done();
+            await agent
+              .get("/")
+              .then((res) => {
+                expect(res.headers["set-cookie"][0]).to.equal("mycookie=test");
+                expect(res.text).to.equal("your cookie: undefined");
+              })
+              .then(() => agent.get("/"))
+              .then((res) => {
+                expect(res.text).to.equal("your cookie: mycookie=test");
+                server.once("close", () => {
+                  done();
+                });
               });
-              server.close();
-            });
+          } catch (error) {
+            done(error);
+          } finally {
+            server.close();
+          }
         });
       });
     });
