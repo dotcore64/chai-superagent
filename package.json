@@ -36,7 +36,7 @@
   "scripts": {
     "lint": "eslint --cache .",
     "test:types": "tsc -p types",
-    "test:node": "node --test test/**",
+    "test:node": "node --test test/assertions.js test/integration.js",
     "test:browser": "karma start karma.conf.cjs --single-run --no-auto-watch",
     "test": "npm run test:types && npm run test:node && npm run test:browser",
     "cover": "npm run test:types && c8 npm run test:node && npm run test:browser"

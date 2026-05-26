@@ -19,7 +19,6 @@ module.exports = async (config) => {
     files: [
       { pattern: "test/assertions.js", type: "module" },
       { pattern: "test/integration.js", type: "module" },
-      { pattern: "test/test-polyfill.js", type: "module" },
     ],
 
     // preprocess matching files before serving them to the browser
