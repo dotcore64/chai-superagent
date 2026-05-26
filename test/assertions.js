@@ -101,15 +101,15 @@ describe('assertions', () => {
       },
     };
 
-    expect(req).to.have.headers; // eslint-disable-line no-unused-expressions
-    expect(res).to.have.headers; // eslint-disable-line no-unused-expressions
+    expect(req).to.have.headers;  
+    expect(res).to.have.headers;  
 
     expect(() => {
-      expect(req).to.not.have.headers; // eslint-disable-line no-unused-expressions
+      expect(req).to.not.have.headers;  
     }).to.throw('expected { headers: { foo: \'bar\' } } to not have headers or getHeader method');
 
     expect(() => {
-      expect(res).to.not.have.headers; // eslint-disable-line no-unused-expressions
+      expect(res).to.not.have.headers;  
     }).to.throw(/expected .*getHeader.* to not have headers or getHeader method/);
   });
 
@@ -121,15 +121,15 @@ describe('assertions', () => {
       },
     };
 
-    expect(req).to.be.json; // eslint-disable-line no-unused-expressions
-    expect(res).to.be.json; // eslint-disable-line no-unused-expressions
+    expect(req).to.be.json;  
+    expect(res).to.be.json;  
 
     expect(() => {
-      expect(req).to.not.be.json; // eslint-disable-line no-unused-expressions
+      expect(req).to.not.be.json;  
     }).to.throw('expected [ \'application/json\' ] to not include \'application/json\'');
 
     expect(() => {
-      expect(res).to.not.be.json; // eslint-disable-line no-unused-expressions
+      expect(res).to.not.be.json;  
     }).to.throw('expected \'application/json\' to not include \'application/json\'');
   });
 
@@ -141,15 +141,15 @@ describe('assertions', () => {
       },
     };
 
-    expect(req).to.be.text; // eslint-disable-line no-unused-expressions
-    expect(res).to.be.text; // eslint-disable-line no-unused-expressions
+    expect(req).to.be.text;  
+    expect(res).to.be.text;  
 
     expect(() => {
-      expect(req).to.not.be.text; // eslint-disable-line no-unused-expressions
+      expect(req).to.not.be.text;  
     }).to.throw('expected [ \'text/plain\' ] to not include \'text/plain\'');
 
     expect(() => {
-      expect(res).to.not.be.text; // eslint-disable-line no-unused-expressions
+      expect(res).to.not.be.text;  
     }).to.throw('expected \'text/plain\' to not include \'text/plain\'');
   });
 
@@ -161,41 +161,41 @@ describe('assertions', () => {
       },
     };
 
-    expect(req).to.be.html; // eslint-disable-line no-unused-expressions
-    expect(res).to.be.html; // eslint-disable-line no-unused-expressions
+    expect(req).to.be.html;  
+    expect(res).to.be.html;  
 
     expect(() => {
-      expect(req).to.not.be.html; // eslint-disable-line no-unused-expressions
+      expect(req).to.not.be.html;  
     }).to.throw('expected [ \'text/html\' ] to not include \'text/html\'');
 
     expect(() => {
-      expect(res).to.not.be.html; // eslint-disable-line no-unused-expressions
+      expect(res).to.not.be.html;  
     }).to.throw('expected \'text/html\' to not include \'text/html\'');
   });
 
   it('#redirect', () => {
-    expect({ status: 200 }).to.not.redirect; // eslint-disable-line no-unused-expressions
+    expect({ status: 200 }).to.not.redirect;  
 
     [301, 302, 303, 307, 308].forEach((status) => {
-      expect({ status }).to.redirect; // eslint-disable-line no-unused-expressions
+      expect({ status }).to.redirect;  
     });
 
-    expect({ // eslint-disable-line no-unused-expressions
+    expect({  
       status: 200,
       redirects: ['http://example.com'],
     }).to.redirect;
 
-    expect({ // eslint-disable-line no-unused-expressions
+    expect({  
       status: 200,
       redirects: [],
     }).to.not.redirect;
 
     expect(() => {
-      expect({ status: 200 }).to.redirect; // eslint-disable-line no-unused-expressions
+      expect({ status: 200 }).to.redirect;  
     }).to.throw('expected redirect with 30X status code but got 200');
 
     expect(() => {
-      expect({ status: 301 }).to.not.redirect; // eslint-disable-line no-unused-expressions
+      expect({ status: 301 }).to.not.redirect;  
     }).to.throw('expected not to redirect but got 301 status');
   });
 

@@ -31,23 +31,23 @@ describe('superagent', () => {
       .get(`${BASEURL}/html`)
       .then((res) => {
         expect(res).to.have.status(200);
-        expect(res).to.be.html; // eslint-disable-line no-unused-expressions
-        expect(res).to.not.be.text; // eslint-disable-line no-unused-expressions
-        expect(res).to.not.be.json; // eslint-disable-line no-unused-expressions
+        expect(res).to.be.html;  
+        expect(res).to.not.be.text;  
+        expect(res).to.not.be.json;  
         expect(res.text).to.be.a('string').with.length.above(0);
 
         // Slightly different behavior in SuperAgent in Node/browsers
-        isNode && expect(res.body).to.deep.equal({}); // eslint-disable-line no-unused-expressions
-        isBrowser && expect(res.body).to.be.null; // eslint-disable-line no-unused-expressions
+        isNode && expect(res.body).to.deep.equal({});  
+        isBrowser && expect(res.body).to.be.null;  
       }));
 
     it('can request JSON data', () => request
       .get(`${BASEURL}/get`)
       .then((res) => {
         expect(res).to.have.status(200);
-        expect(res).to.be.json; // eslint-disable-line no-unused-expressions
-        expect(res).to.not.be.html; // eslint-disable-line no-unused-expressions
-        expect(res).to.not.be.text; // eslint-disable-line no-unused-expressions
+        expect(res).to.be.json;  
+        expect(res).to.not.be.html;  
+        expect(res).to.not.be.text;  
         expect(res.text).to.be.a('string').with.length.above(0);
         expect(res.body).to.be.an('object');
       }));
@@ -62,16 +62,16 @@ describe('superagent', () => {
         expect(res).to.have.status(200);
 
         // Content-Type and Pragma are supported on Node and browser
-        expect(res).to.be.json; // eslint-disable-line no-unused-expressions
+        expect(res).to.be.json;  
         expect(res).to.have.header('Content-Type', /json$/);
         expect(res).to.have.header('Pragma', 'test1');
 
         // When running in a browser, only "simple" headers are readable
         // https://www.w3.org/TR/cors/#simple-response-header
-        isNode && expect(res).to.have.header('Location', 'test2'); // eslint-disable-line no-unused-expressions
-        isNode && expect(res).to.have.header('X-API-Key', 'test3'); // eslint-disable-line no-unused-expressions
-        isBrowser && expect(res).to.not.have.header('Location'); // eslint-disable-line no-unused-expressions
-        isBrowser && expect(res).to.not.have.header('X-API-Key'); // eslint-disable-line no-unused-expressions
+        isNode && expect(res).to.have.header('Location', 'test2');  
+        isNode && expect(res).to.have.header('X-API-Key', 'test3');  
+        isBrowser && expect(res).to.not.have.header('Location');  
+        isBrowser && expect(res).to.not.have.header('X-API-Key');  
       }));
 
     it('succeeds when response has an error status', () => request
