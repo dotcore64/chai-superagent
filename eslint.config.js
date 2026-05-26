@@ -4,6 +4,7 @@ import mocha from "eslint-plugin-mocha";
 import imprt from "eslint-plugin-import";
 import unicorn from "eslint-plugin-unicorn";
 import comments from "@eslint-community/eslint-plugin-eslint-comments/configs";
+import prettier from "eslint-plugin-prettier/recommended";
 
 const testFiles = ["test/{,**}/*.?(c)js"];
 
@@ -13,6 +14,7 @@ export default [
   comments.recommended,
   unicorn.configs.recommended,
   imprt.flatConfigs.recommended,
+  prettier,
   {
     languageOptions: {
       sourceType: "module",
