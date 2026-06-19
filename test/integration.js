@@ -147,7 +147,7 @@ describe("superagent", () => {
       it("can request an already existing url", (_, done) => {
         const server = createServer((req, res) => {
           expect(req.headers["x-api-key"]).to.equal("test2");
-          res.writeHeader(200, { "content-type": "text/plain" });
+          res.writeHead(200, { "content-type": "text/plain" });
           res.end("hello world");
         });
 
@@ -174,7 +174,7 @@ describe("superagent", () => {
       it("agent can be used to persist cookies", (_, done) => {
         const server = createServer((req, res) => {
           res.setHeader("Set-Cookie", "mycookie=test");
-          res.writeHeader(200, { "content-type": "text/plain" });
+          res.writeHead(200, { "content-type": "text/plain" });
           res.end(`your cookie: ${req.headers.cookie}`);
         });
 
