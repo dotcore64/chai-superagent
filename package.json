@@ -63,7 +63,7 @@
     "@types/superagent": "^8.1.10",
     "c8": "^11.0.0",
     "chai": "^6.2.2",
-    "eslint": "^9.39.4",
+    "eslint": "^10.6.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-mocha": "^11.3.0",
