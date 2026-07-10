@@ -38,6 +38,7 @@ export default [
     files: testFiles,
     rules: {
       "mocha/no-mocha-arrows": "off",
+      "mocha/handle-done-callback": "off", // since we are using node:test the done function is in a different position
     },
   },
   {
